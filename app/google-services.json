@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "1027609100331",
+    "firebase_url": "https://dewasinhand.firebaseio.com",
+    "project_id": "dewasinhand",
+    "storage_bucket": "dewasinhand.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1027609100331:android:91eda0187ddf5907",
+        "android_client_info": {
+          "package_name": "pratik.com.shauryatoday.dewasii_01"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1027609100331-e2m0f93ogqefvvr4fl2m7pt3rf2s3r83.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "pratik.com.shauryatoday.dewasii_01",
+            "certificate_hash": "311E93FBDE33A1768F88C8ABE41E616B82935242"
+          }
+        },
+        {
+          "client_id": "1027609100331-ae4psvj6eoijvp9rpcd0auh3cecn5o4v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDoQ0QjA9uZlf9BBbm8vUgfVfU5QHu6L_M"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1027609100331-ae4psvj6eoijvp9rpcd0auh3cecn5o4v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

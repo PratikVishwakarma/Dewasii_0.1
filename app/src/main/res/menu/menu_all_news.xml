@@ -1,0 +1,10 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/action_goto_home"
+        android:orderInCategory="9"
+        android:title=""
+        android:visible="true"
+        android:icon="@drawable/ic_apps_white_menu"
+        app:showAsAction="always"/>
+</menu>

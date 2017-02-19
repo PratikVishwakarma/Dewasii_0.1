@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>DewasInHand fitnessCenter Database </title>
+    <script src="https://www.gstatic.com/firebasejs/3.6.9/firebase.js"></script>
+
+      <script>
+(function(){
+  // Initialize Firebase
+	var config = {
+    apiKey: "AIzaSyD_LY98P4hkDXTqIiQKrZGNqkCmxiyduSE",
+    authDomain: "dewasinhand.firebaseapp.com",
+    databaseURL: "https://dewasinhand.firebaseio.com",
+    storageBucket: "dewasinhand.appspot.com",
+    messagingSenderId: "1027609100331"
+  };
+  firebase.initializeApp(config);
+}());
+
+function insertWithImage(){
+	// current date and time
+	var d = new Date();
+	var millsec = d.getTime();
+	var date = d.getDate();
+	var month = d.getMonth();
+	var year = d.getYear();
+	var min = d.getMinutes();
+	var time = d.getHours();
+
+	// get elements
+	var fitnessCenterName = document.getElementById("fitnessCenterName");
+	var fitnessCenterContactNo = document.getElementById("fitnessCenterContactNo");
+	var fitnessCenterAddress = document.getElementById("fitnessCenterAddress");
+	var fitnessCenterEmail = document.getElementById("fitnessCenterEmail");
+	var fitnessCenterWebsite = document.getElementById("fitnessCenterWebsite");
+	var fitnessCenterOtherInformation = document.getElementById("fitnessCenterOtherInformation");
+	var fitnessCenterFacilities = document.getElementById("fitnessCenterFacilities");
+	var fitnessCenterImage = document.getElementById("fitnessCenterImage");
+	
+	var fitnessCenterLatitude = document.getElementById("fitnessCenterLatitude");
+	var fitnessCenterLongitude = document.getElementById("fitnessCenterLongitude");
+	
+	var file = fitnessCenterImage.files[0];
+	var metadata = {
+		'contentType': file.type,
+		'name':millsec+file.type
+	};
+
+	// Get a reference to the storage service, which is used to create references in your storage bucket
+	var storage = firebase.storage();
+
+	// Create a storage reference from our storage service
+	var storageRef = storage.ref();
+	// Create a child reference
+	//var imagesRef = storageRef.child('images').child('health').child('fitnessCenter');
+
+	// Write the data in database
+	// Get a key for a new Post.
+	var newsDbRef = firebase.database().ref().child('health').child('fitnessCenter');
+	//var newNewsKey = newsDbRef.push().key;
+	newsDbRef.child(millsec).set({
+		name: fitnessCenterName.value,		
+		contactNo: fitnessCenterContactNo.value,		
+		address: fitnessCenterAddress.value,		
+		email: fitnessCenterEmail.value,
+		website: fitnessCenterWebsite.value,			
+		otherInformation: fitnessCenterOtherInformation.value,	
+		facilities: fitnessCenterFacilities.value,		
+		image: file.name,	
+		fitnessCenterId: millsec,	
+		dateAndTime: date+"-"+ month+"-"+ year+" "+ time+":"+ min, 
+		latitude: fitnessCenterLatitude.value,
+		longitude: fitnessCenterLongitude.value
+	});
+
+	storageRef.child('images/health/fitnessCenter/'+file.name).put(file, metadata).then(function(snapshot) {
+		console.log('Uploaded a blob or file!');
+	});
+	alert('Done With Image');
+}
+
+function insertWithoutImage(){
+		// current date and time
+		var d = new Date();
+		var millsec = d.getTime();
+		var date = d.getDate();
+		var month = d.getMonth();
+		var year = d.getYear();
+		var min = d.getMinutes();
+		var time = d.getHours();
+
+		// get elements
+		var fitnessCenterName = document.getElementById("fitnessCenterName");
+		var fitnessCenterContactNo = document.getElementById("fitnessCenterContactNo");
+		var fitnessCenterAddress = document.getElementById("fitnessCenterAddress");
+		var fitnessCenterEmail = document.getElementById("fitnessCenterEmail");
+		var fitnessCenterWebsite = document.getElementById("fitnessCenterWebsite");
+		var fitnessCenterOtherInformation = document.getElementById("fitnessCenterOtherInformation");
+		var fitnessCenterFacilities = document.getElementById("fitnessCenterFacilities");
+		var fitnessCenterImage = document.getElementById("fitnessCenterImage");
+		
+		var fitnessCenterLatitude = document.getElementById("fitnessCenterLatitude");
+		var fitnessCenterLongitude = document.getElementById("fitnessCenterLongitude");
+		
+		// Write the data in database
+		// Get a key for a new Post.
+		var newsDbRef = firebase.database().ref().child('health').child('fitnessCenter');
+		//var newNewsKey = newsDbRef.push().key;
+		newsDbRef.child(millsec).set({
+			name: fitnessCenterName.value,		
+			contactNo: fitnessCenterContactNo.value,		
+			address: fitnessCenterAddress.value,		
+			email: fitnessCenterEmail.value,
+			website: fitnessCenterWebsite.value,			
+			otherInformation: fitnessCenterOtherInformation.value,	
+			facilities: fitnessCenterFacilities.value,		
+			image: 'NA',	
+			fitnessCenterId: millsec,	
+			dateAndTime: date+"-"+ month+"-"+ year+" "+ time+":"+ min, 
+			latitude: fitnessCenterLatitude.value,
+			longitude: fitnessCenterLongitude.value
+		});
+	alert('Done Without Image');
+}
+          
+function updateImage(){
+	var fitnessCenterUpdateImage = document.getElementById("fitnessCenterUpdateImage");
+	var fitnessCenterid = document.getElementById("fitnessCenterid");
+	
+    var file = fitnessCenterUpdateImage.files[0];
+	var metadata = {
+		'contentType': file.type
+	};
+
+	// Get a reference to the storage service, which is used to create references in your storage bucket
+	var storage = firebase.storage();
+
+	// Create a storage reference from our storage service
+	var storageRef = storage.ref();
+	// Create a child reference
+	
+    // Get a key for a new Post.
+	var newsDbRef = firebase.database().ref().child('health').child('fitnessCenter');
+	//var newNewsKey = newsDbRef.push().key;
+	newsDbRef.child(hospitalid.value).update({
+		image: file.name,	
+    });
+
+	storageRef.child('images/health/fitnessCenter/'+file.name).put(file, metadata).then(function(snapshot) {
+		console.log('Uploaded a blob or file!');
+	});
+	alert('Image Updated');
+}
+	</script>
+
+      
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="icon" type="image/ico" href="assets/images/favicon.ico" />
+    <!-- Bootstrap -->
+    <link href="assets/css/vendor/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
+    <link rel="stylesheet" href="assets/css/vendor/animate/animate.css">
+    <link type="text/css" rel="stylesheet" media="all" href="assets/js/vendor/mmenu/css/jquery.mmenu.all.css" />
+    <link rel="stylesheet" href="assets/js/vendor/videobackground/css/jquery.videobackground.css">
+    <link rel="stylesheet" href="assets/css/vendor/bootstrap-checkbox.css">
+
+    <link rel="stylesheet" href="assets/js/vendor/summernote/css/summernote.css">
+    <link rel="stylesheet" href="assets/js/vendor/summernote/css/summernote-bs3.css">
+    <link rel="stylesheet" href="assets/js/vendor/chosen/css/chosen.min.css">
+    <link rel="stylesheet" href="assets/js/vendor/chosen/css/chosen-bootstrap.css">
+    <link rel="stylesheet" href="assets/js/vendor/datepicker/css/bootstrap-datetimepicker.css">
+    <link rel="stylesheet" href="assets/js/vendor/colorpicker/css/bootstrap-colorpicker.css">
+    <link rel="stylesheet" href="assets/js/vendor/colorpalette/bootstrap-colorpalette.css">
+
+    <link href="assets/css/minimal.css" rel="stylesheet">
+  </head>
+  <body class="bg-1">
+
+    <!-- Preloader -->
+    <div class="mask"><div id="loader"></div></div>
+    <!--/Preloader -->
+
+    <!-- Wrap all page content here -->
+    <div id="wrap">
+
+      <!-- Make page fluid -->
+      <div class="row">
+        
+    <!-- Fixed navbar -->
+        <div class="navbar navbar-default navbar-fixed-top navbar-transparent-black mm-fixed-top" role="navigation" id="navbar">
+          <!-- Branding -->
+          <div class="navbar-header col-md-2">
+            <a class="navbar-brand" href="index.html">
+              <strong>Dewas</strong>In<strong>Hand</strong>
+            </a>
+            <div class="sidebar-collapse">
+              <a href="#">
+                <i class="fa fa-bars"></i>
+              </a>
+            </div>
+          </div>
+          <!-- Branding end -->
+
+
+          <!-- .nav-collapse -->
+          <div class="navbar-collapse">
+                        
+            <!-- Sidebar -->
+            <ul class="nav navbar-nav side-nav" id="sidebar">
+              
+              <li class="collapsed-content"> 
+                <ul>
+                  <li class="search"><!-- Collapsed search pasting here at 768px --></li>
+                </ul>
+              </li>
+
+               <li class="navigation" id="navigation">
+                <a href="#" class="sidebar-toggle" data-toggle="#navigation">Navigation <i class="fa fa-angle-up"></i></a>
+                
+                <ul class="menu">
+                  
+                  <li>
+                    <a href="index.html">
+                      <i class="fa fa-tachometer"></i> Categories
+                      <span class="badge badge-red"></span>
+                    </a>
+                  </li>
+
+                  <li class="dropdown open active">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                      <i class="fa fa-list"></i> Health <b class="fa fa-plus dropdown-plus"></b>
+                    </a>
+                    <ul class="dropdown-menu">
+                      <li class="active">
+                        <a href="Health_hospital.html">
+                          <i class="fa fa-caret-right"></i> Hospital
+                        </a>
+                      </li>
+                      <li class="active">
+                        <a href="Health_fitness_center.html">
+                          <i class="fa fa-caret-right"></i> Fitness Center
+                        </a>
+                      </li>
+                        <li class="active">
+                            <a href="Health_medical_store.html">
+                                <i class="fa fa-caret-right"></i> Medical Store
+                            </a>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+
+              </li>
+            </ul>
+            <!-- Sidebar end -->
+          </div>
+          <!--/.nav-collapse -->
+
+        </div>
+        <!-- Fixed navbar end -->
+        
+        <!-- Page content -->
+        <div id="content" class="col-md-12">
+          
+
+          <!-- page header -->
+          <div class="pageheader">
+            
+
+            <h2><i class="fa fa-thumb-tack" style="line-height: 48px;padding-left: 1px;"></i> fitnessCenter <span>   </span></h2>
+            
+
+            <div class="breadcrumbs">
+              <ol class="breadcrumb">
+                <li>You are here</li>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="Health_fitness_center.html">Health</a></li>
+                <li class="active">Fitness Center</li>
+              </ol>
+            </div>
+
+
+          </div>
+          <!-- /page header -->
+          
+
+          <!-- content main container -->
+          <div class="main">
+
+            <!-- row -->
+            <div class="row">
+
+              <!-- col 12 -->
+              <div class="col-md-6">
+
+
+
+                <!-- tile -->
+                <section class="tile color transparent-black">
+
+                  <!-- tile header -->
+                  <div class="tile-header">
+                    <h1><strong>New</strong> Entry</h1>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+                  <!-- tile body -->
+                  <div class="tile-body">
+                    
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <label for="input01" class="col-sm-4 control-label">Name</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="fitnessCenterName" name="fitnessCenterName" required placeholder="Name" class="form-control" id="input01">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterContactNo" class="col-sm-4 control-label">Contact No</label>
+                            <div class="col-sm-8">
+                                <input type="text"  id="fitnessCenterContactNo" name="fitnessCenterContactNo" required placeholder="Contact No" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterAddress" class="col-sm-4 control-label">Address</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control" name="fitnessCenterAddress" id="fitnessCenterAddress"  rows="3"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fitnessCenterEmail" class="col-sm-4 control-label">Email </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  id="fitnessCenterEmail" name="fitnessCenterEmail" required placeholder="Email">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterWebsite" class="col-sm-4 control-label">Webseit </label>
+                            <div class="col-sm-8">
+                                <input type="text" class="form-control"  id="fitnessCenterWebsite" name="fitnessCenterWebsite" required placeholder="Website">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="fitnessCenterOtherInformation" class="col-sm-4 control-label">Other Information</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control"  name="fitnessCenterOtherInformation" id="fitnessCenterOtherInformation" rows="4"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterFacilities" class="col-sm-4 control-label">Facilities</label>
+                            <div class="col-sm-8">
+                                <textarea class="form-control"  name="fitnessCenterFacilities" id="fitnessCenterFacilities" rows="4"></textarea>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterContactNo" class="col-sm-4 control-label">Latitude</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="fitnessCenterLatitude" name="fitnessCenterLatitude" required placeholder="Latitude" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterContactNo" class="col-sm-4 control-label">Longitude</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="fitnessCenterLongitude" name="fitnessCenterLongitude" required placeholder="Longitude" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                        <label for="colorpicker-rgb" class="col-sm-4 control-label">fitnessCenter Image</label>
+                        <div class="col-sm-8">
+                          <div class="input-group">
+                          <span class="input-group-btn">
+                            <span class="btn btn-primary btn-file">
+                              <i class="fa fa-upload"></i><input type="file" name="fitnessCenterImage" id="fitnessCenterImage" >
+                            </span>
+                          </span>
+                          <input type="text" class="form-control" >
+                        </div>
+                        </div>
+                      </div>
+                        <div class="form-group form-footer footer-white">
+                        <div class="col-sm-offset-4 col-sm-8">
+                          <input type="button" class="btn btn-green" onClick="insertWithImage()" value="Submit With Image"/>
+                          <input type="button" class="btn btn-red" onClick="insertWithoutImage()" value="Submit Without Image"/>
+                        </div>
+                      </div>
+                    </form>
+
+                  </div>
+                  <!-- /tile body -->
+                  
+                
+
+
+                </section>
+                <!-- /tile -->
+
+
+
+
+              </div>
+              <!-- /col 6 -->
+
+
+              <!-- col 12 -->
+              <div class="col-md-6">
+
+
+
+                <!-- tile -->
+                <section class="tile color transparent-white">
+                  <!-- tile header -->
+                  <div class="tile-header">
+                    <h1><strong>Update</strong> Image</h1>
+                    <div class="controls">
+                      <a href="#" class="refresh"><i class="fa fa-refresh"></i></a>
+                      <a href="#" class="remove"><i class="fa fa-times"></i></a>
+                    </div>
+                  </div>
+                  <!-- /tile header -->
+
+                  <!-- tile body -->
+                  <div class="tile-body">
+                    
+                    <form class="form-horizontal" role="form">
+                      
+                        <div class="form-group">
+                            <label for="fitnessCenterid" class="col-sm-4 control-label">Fitness Center Id</label>
+                            <div class="col-sm-8">
+                                <input type="text" id="fitnessCenterid" name="fitnessCenterid" required placeholder="Fitness Center Id" class="form-control">
+                            </div>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="fitnessCenterUpdateImage" class="col-sm-4 control-label">Fitness Center Image</label>
+                            <div class="col-sm-8">
+                                <div class="input-group">
+                                    <span class="input-group-btn">
+                                        <span class="btn btn-primary btn-file">
+                                            <i class="fa fa-upload"></i><input type="file" name="fitnessCenterUpdateImage" id="fitnessCenterUpdateImage" >
+                                        </span>
+                                    </span>
+                                    <input type="text" class="form-control" >
+                                </div>
+                            </div>
+                        </div>
+                      
+                        <div class="form-group form-footer footer-white">
+                            <div class="col-sm-offset-4 col-sm-8">
+                                <input type="button" class="btn btn-green" onClick="updateImage()" value="Update Image"/>
+                            </div>
+                        </div>
+                    </form>
+
+                  </div>
+                  <!-- /tile body -->
+                  
+                
+
+
+                </section>
+                <!-- /tile -->
+
+
+
+
+              </div>
+              <!-- /col 6 -->
+
+
+              
+            </div>
+            <!-- /row -->
+
+
+          
+          </div>
+          <!-- /content container -->
+
+
+
+
+
+
+        </div>
+        <!-- Page content end -->
+
+
+      </div>
+      <!-- Make page fluid-->
+
+
+
+
+    </div>
+    <!-- Wrap all page content end -->
+    <section class="videocontent" id="video"></section>
+
+
+
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="http://code.jquery.com/jquery.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="assets/js/vendor/bootstrap/bootstrap.min.js"></script>
+    <script src="../../google-code-prettify.googlecode.com/svn/loader/run_prettifyf793.js?lang=css&amp;skin=sons-of-obsidian"></script>
+    <script type="text/javascript" src="assets/js/vendor/mmenu/js/jquery.mmenu.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/sparkline/jquery.sparkline.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/nicescroll/jquery.nicescroll.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/animate-numbers/jquery.animateNumbers.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/videobackground/jquery.videobackground.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/blockui/jquery.blockUI.js"></script>
+
+    <script src="assets/js/vendor/summernote/summernote.min.js"></script>
+
+    <script src="assets/js/vendor/chosen/chosen.jquery.min.js"></script>
+
+    <script src="assets/js/vendor/momentjs/moment-with-langs.min.js"></script>
+    <script src="assets/js/vendor/datepicker/bootstrap-datetimepicker.min.js"></script>
+
+    <script src="assets/js/vendor/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+    <script src="assets/js/vendor/colorpalette/bootstrap-colorpalette.js"></script>
+
+    <script src="assets/js/minimal.min.js"></script>
+
+    <script>
+
+    //initialize file upload button function
+    $(document)
+      .on('change', '.btn-file :file', function() {
+        var input = $(this),
+        numFiles = input.get(0).files ? input.get(0).files.length : 1,
+        label = input.val().replace(/\\/g, 'http://tattek.com/').replace(/.*\//, '');
+        input.trigger('fileselect', [numFiles, label]);
+    });
+
+
+    $(function(){
+
+      //load wysiwyg editor
+      $('#input06').summernote({
+        toolbar: [
+          //['style', ['style']], // no style button
+          ['style', ['bold', 'italic', 'underline', 'clear']],
+          ['fontsize', ['fontsize']],
+          ['color', ['color']],
+          ['para', ['ul', 'ol', 'paragraph']],
+          ['height', ['height']],
+          //['insert', ['picture', 'link']], // no insert buttons
+          //['table', ['table']], // no table button
+          //['help', ['help']] //no help button
+        ],
+        height: 137   //set editable area's height
+      });
+
+      //chosen select input
+      $(".chosen-select").chosen({disable_search_threshold: 10});
+
+      //initialize datepicker
+      $('#datepicker').datetimepicker({
+        icons: {
+          time: "fa fa-clock-o",
+          date: "fa fa-calendar",
+          up: "fa fa-arrow-up",
+          down: "fa fa-arrow-down"
+        }
+      });
+
+      $("#datepicker").on("dp.show",function (e) {
+        var newtop = $('.bootstrap-datetimepicker-widget').position().top - 45;      
+        $('.bootstrap-datetimepicker-widget').css('top', newtop + 'px');
+      });
+
+      //initialize colorpicker
+      $('#colorpicker').colorpicker();
+
+      $('#colorpicker').colorpicker().on('showPicker', function(e){
+        var newtop = $('.dropdown-menu.colorpicker.colorpicker-visible').position().top - 45;      
+        $('.dropdown-menu.colorpicker.colorpicker-visible').css('top', newtop + 'px');
+      });
+
+      //initialize colorpicker RGB
+      $('#colorpicker-rgb').colorpicker({
+        format: 'rgb'
+      });
+
+      $('#colorpicker-rgb').colorpicker().on('showPicker', function(e){
+        var newtop = $('.dropdown-menu.colorpicker.colorpicker-visible').position().top - 45;      
+        $('.dropdown-menu.colorpicker.colorpicker-visible').css('top', newtop + 'px');
+      });
+
+      //initialize file upload button
+      $('.btn-file :file').on('fileselect', function(event, numFiles, label) {
+        
+        var input = $(this).parents('.input-group').find(':text'),
+            log = numFiles > 1 ? numFiles + ' files selected' : label;
+
+            console.log(log);
+        
+        if( input.length ) {
+          input.val(log);
+        } else {
+          if( log ) alert(log);
+        }
+        
+      });
+
+      // Initialize colorpalette
+      $('#event-colorpalette').colorPalette({ 
+        colors:[['#428bca', '#5cb85c', '#5bc0de', '#f0ad4e' ,'#d9534f', '#ff4a43', '#22beef', '#a2d200', '#ffc100', '#cd97eb', '#16a085', '#FF0066', '#A40778', '#1693A5']] 
+      }).on('selectColor', function(e) {
+        var data = $(this).data();
+
+        $(data.returnColor).val(e.color);
+        $(this).parents(".input-group").css("border-bottom-color", e.color );
+      });
+      
+    })
+      
+    </script>
+  </body>
+</html>
+      
